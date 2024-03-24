@@ -14,6 +14,8 @@ export default createGlobalStyle`
     }
 
     body {
-        background-color: #6734dd;
+        background-color: ${(props) =>
+          props.theme.dark.colors.palette.purple.eletricIndigo};
+        font-family: ${(props) => props.theme.dark.fonts.primary};
     }
 `;
