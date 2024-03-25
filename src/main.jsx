@@ -9,17 +9,21 @@ import {
 } from "@mui/material/styles";
 import { theme } from "./styles/Theme.js";
 import AppRouter from "./routes.jsx";
+import { Provider } from "react-redux";
+import store from "./store/index.js";
 
 const muiTheme = createTheme();
 const mergedTheme = createTheme(muiTheme, theme);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <MuiThemeProvider theme={mergedTheme}>
-        <GlobalStyles />
-        <AppRouter />
-      </MuiThemeProvider>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <MuiThemeProvider theme={mergedTheme}>
+          <GlobalStyles />
+          <AppRouter />
+        </MuiThemeProvider>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 );
