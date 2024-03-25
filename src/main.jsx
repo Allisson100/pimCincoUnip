@@ -8,6 +8,7 @@ import {
   createTheme,
 } from "@mui/material/styles";
 import { theme } from "./styles/Theme.js";
+import AppRouter from "./routes.jsx";
 
 const muiTheme = createTheme();
 const mergedTheme = createTheme(muiTheme, theme);
@@ -17,7 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <ThemeProvider theme={theme}>
       <MuiThemeProvider theme={mergedTheme}>
         <GlobalStyles />
-        <App />
+        <AppRouter />
       </MuiThemeProvider>
     </ThemeProvider>
   </React.StrictMode>
