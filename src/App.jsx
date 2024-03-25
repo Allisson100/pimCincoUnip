@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import Logo from "./components/Logo";
+import Home from "./Page/Home";
 
 const App = () => {
   return (
     <Box p={5}>
-      <Logo />
+      <Home />
     </Box>
   );
 };

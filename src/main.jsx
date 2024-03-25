@@ -3,13 +3,22 @@ import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import GlobalStyles from "./styles/GlobalStyles.jsx";
 import { ThemeProvider } from "styled-components";
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+} from "@mui/material/styles";
 import { theme } from "./styles/Theme.js";
+
+const muiTheme = createTheme();
+const mergedTheme = createTheme(muiTheme, theme);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <App />
+      <MuiThemeProvider theme={mergedTheme}>
+        <GlobalStyles />
+        <App />
+      </MuiThemeProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

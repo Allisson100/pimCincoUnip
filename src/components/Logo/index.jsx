@@ -1,12 +1,28 @@
+import { Box, Typography, useTheme } from "@mui/material";
 import { IoSchool } from "react-icons/io5";
-import { BoxStyled, TypographyStyled } from "./styles";
 
 const Logo = () => {
+  const theme = useTheme();
+
   return (
-    <BoxStyled component="h1">
-      <IoSchool />
-      <TypographyStyled component="p">Colégio Vencer Sempre </TypographyStyled>
-    </BoxStyled>
+    <Box
+      component="h1"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      flexDirection="column"
+    >
+      <IoSchool size={100} color={theme.dark.colors.defaultMain} />
+      <Typography
+        component="p"
+        sx={(theme) => ({
+          color: theme.dark.colors.defaultMain,
+          fontSize: "2rem",
+        })}
+      >
+        Colégio Vencer Sempre
+      </Typography>
+    </Box>
   );
 };
 
