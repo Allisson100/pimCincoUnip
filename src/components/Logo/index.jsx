@@ -15,6 +15,7 @@ const Logo = () => {
       <IoSchool size={100} color={theme.dark.colors.defaultMain} />
       <Typography
         component="p"
+        textAlign="center"
         sx={(theme) => ({
           color: theme.dark.colors.defaultMain,
           fontSize: "2rem",

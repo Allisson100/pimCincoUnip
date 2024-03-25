@@ -3,6 +3,7 @@ import Logo from "../../components/Logo";
 import { Box, useTheme } from "@mui/material";
 import { TiPlus } from "react-icons/ti";
 import { FaTools } from "react-icons/fa";
+import { FaClock } from "react-icons/fa6";
 
 const Home = () => {
   const theme = useTheme();
@@ -12,27 +13,24 @@ const Home = () => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      flexDirection="column"
-      gap="3rem"
+      gap="1rem"
+      flexWrap="wrap"
     >
-      <Logo />
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        gap="1rem"
+      <ButtonCard
+        icon={<FaTools size={60} color={theme.dark.colors.defaultMain} />}
       >
-        <ButtonCard
-          icon={<TiPlus size={60} color={theme.dark.colors.defaultMain} />}
-        >
-          Ver equipamentos
-        </ButtonCard>
-        <ButtonCard
-          icon={<FaTools size={60} color={theme.dark.colors.defaultMain} />}
-        >
-          Adicionar equipamento
-        </ButtonCard>
-      </Box>
+        Ver equipamentos
+      </ButtonCard>
+      <ButtonCard
+        icon={<TiPlus size={60} color={theme.dark.colors.defaultMain} />}
+      >
+        Adicionar equipamento
+      </ButtonCard>
+      <ButtonCard
+        icon={<FaClock size={60} color={theme.dark.colors.defaultMain} />}
+      >
+        Reservar equipamento
+      </ButtonCard>
     </Box>
   );
 };
