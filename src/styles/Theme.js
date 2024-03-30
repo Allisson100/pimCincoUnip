@@ -7,11 +7,18 @@ export const theme = {
       defaultSecundary: "#000000",
       palette: {
         purple: {
-          eletricIndigo: "#6734dd",
-          blueViolet: "#7a42e6",
-          veronica: "#8d4fee",
-          amethyst: "#a05cf7",
-          lavender: "#b269ff",
+          one: "#6734dd",
+          two: "#7a42e6",
+          three: "#8d4fee",
+          four: "#a05cf7",
+          five: "#b269ff",
+        },
+        blue: {
+          one: "#1B2845",
+          two: "#274060",
+          three: "#335C81",
+          four: "#5899E2",
+          five: "#65AFFF",
         },
       },
     },

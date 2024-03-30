@@ -29,14 +29,14 @@ const LinkMenu = ({ children, to }) => {
       to={to}
       $color={
         selected
-          ? theme.dark.colors.palette.purple.veronica
+          ? theme.dark.colors.palette.blue.five
           : theme.dark.colors.defaultMain
       }
-      $bgColorHover={!selected && theme.dark.colors.palette.purple.blueViolet}
+      $bgColorHover={!selected && theme.dark.colors.palette.blue.two}
       $bgColor={
         selected
           ? theme.dark.colors.defaultMain
-          : theme.dark.colors.palette.purple.veronica
+          : theme.dark.colors.palette.blue.five
       }
       $selected={selected}
     >

@@ -15,12 +15,12 @@ const EquipmentCard = ({ equipment }) => {
       border="3px solid white"
       borderRadius={2}
       color="white"
-      bgcolor={theme.dark.colors.palette.purple.lavender}
+      bgcolor={theme.dark.colors.palette.blue.five}
       width={isMobile ? "100%" : "25rem"}
       flexWrap="wrap"
       sx={{
         "&:hover": {
-          backgroundColor: theme.dark.colors.palette.purple.veronica,
+          backgroundColor: theme.dark.colors.palette.blue.four,
         },
       }}
     >

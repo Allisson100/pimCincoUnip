@@ -15,7 +15,7 @@ export default createGlobalStyle`
 
     body {
         background-color: ${(props) =>
-          props.theme.dark.colors.palette.purple.eletricIndigo};
+          props.theme.dark.colors.palette.blue.one};
         font-family: ${(props) => props.theme.dark.fonts.primary};
     }
 `;

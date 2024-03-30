@@ -17,12 +17,12 @@ const ButtonCard = ({ children, icon, to }) => {
         gap="1rem"
         sx={{
           border: "2px solid white",
-          backgroundColor: theme.dark.colors.palette.purple.lavender,
+          backgroundColor: theme.dark.colors.palette.blue.five,
           transition: "0.2s",
           cursor: "pointer",
 
           "&:hover": {
-            backgroundColor: theme.dark.colors.palette.purple.veronica,
+            backgroundColor: theme.dark.colors.palette.blue.four,
           },
         }}
       >
