@@ -21,8 +21,6 @@ const AddEquipment = () => {
   const dispatch = useDispatch();
   const equipments = useSelector((state) => state.equipments);
 
-  console.log(equipments);
-
   const ValidationSchema = Yup.object().shape({
     name: Yup.string().required("Nome é necessário"),
     iconId: Yup.string().required("Ícone é necessário"),
@@ -67,9 +65,9 @@ const AddEquipment = () => {
           alignItems: "center",
           gap: "2rem",
           width: "100%",
+          marginTop: "4rem",
         }}
       >
-        <Title>Escolha um nome e um ícone</Title>
         {((touched.name && errors.name) ||
           (touched.iconId && errors.iconId) ||
           (touched.category && errors.category)) && (

@@ -16,7 +16,7 @@ const EquipmentCard = ({ equipment }) => {
       borderRadius={2}
       color="white"
       bgcolor={theme.dark.colors.palette.blue.five}
-      width={isMobile ? "100%" : "25rem"}
+      width={isMobile ? "100%" : "30%"}
       flexWrap="wrap"
       sx={{
         "&:hover": {

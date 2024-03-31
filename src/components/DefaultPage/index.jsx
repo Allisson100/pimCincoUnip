@@ -1,9 +1,11 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Logo from "../Logo";
 import { Box } from "@mui/material";
 import Menu from "../Menu";
 
 const DefaultPage = () => {
+  const { pathname } = useLocation();
+
   return (
     <Box
       p={5}
@@ -13,8 +15,8 @@ const DefaultPage = () => {
       flexDirection="column"
       gap="2rem"
     >
-      <Logo />
-      <Menu />
+      {pathname === "/" && <Logo />}
+      {pathname !== "/" && <Menu />}
       <Outlet />
     </Box>
   );

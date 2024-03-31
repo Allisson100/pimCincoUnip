@@ -6,7 +6,7 @@ const Logo = () => {
   const theme = useTheme();
 
   return (
-    <Link to="/" style={{ textDecoration: "none" }}>
+    <Link to="/" style={{ textDecoration: "none", marginBottom: "4rem" }}>
       <Box
         component="h1"
         display="flex"

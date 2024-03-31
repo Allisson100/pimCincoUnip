@@ -8,9 +8,8 @@ const ShowEquipaments = () => {
   return (
     <Box
       display="flex"
-      flexDirection="column"
-      justifyContent="center"
       alignItems="center"
+      justifyContent="space-between"
       component="section"
       gap="1rem"
       flexWrap="wrap"
