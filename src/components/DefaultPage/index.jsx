@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Logo from "../Logo";
 import { Box } from "@mui/material";
+import Menu from "../Menu";
 
 const DefaultPage = () => {
   return (
@@ -13,6 +14,7 @@ const DefaultPage = () => {
       gap="2rem"
     >
       <Logo />
+      <Menu />
       <Outlet />
     </Box>
   );
