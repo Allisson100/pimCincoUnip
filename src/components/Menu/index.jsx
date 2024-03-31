@@ -48,7 +48,7 @@ const LinkMenu = ({ children, to }) => {
 const Menu = () => {
   const theme = useTheme();
   return (
-    <Box marginBottom="4rem">
+    <Box marginBottom="2rem">
       <Breadcrumbs color={theme.dark.colors.defaultMain}>
         <LinkMenu to="/">Início</LinkMenu>
         <LinkMenu to="/showEquipments">Ver equipamentos</LinkMenu>
