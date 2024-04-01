@@ -12,7 +12,7 @@ const EquipmentCard = ({ equipment }) => {
       alignItems="center"
       gap="1rem"
       padding={2}
-      border="3px solid white"
+      border="3px solid black"
       borderRadius={2}
       color="white"
       bgcolor={theme.dark.colors.palette.blue.five}

@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 const LinkStyled = styled(Link)`
   font-size: 1.1rem;
-  text-decoration: none;
+  text-decoration: ${(props) => (props.$underline ? "underline" : "none")};
   color: ${(props) => props.$color};
   padding: 0.3rem 0.8rem;
   display: flex;
@@ -29,18 +29,9 @@ const LinkMenu = ({ children, to }) => {
   return (
     <LinkStyled
       to={to}
-      $color={
-        selected
-          ? theme.dark.colors.palette.blue.five
-          : theme.dark.colors.defaultMain
-      }
-      $bgColorHover={!selected && theme.dark.colors.palette.blue.three}
-      $bgColor={
-        selected
-          ? theme.dark.colors.defaultMain
-          : theme.dark.colors.palette.blue.five
-      }
-      $selected={selected}
+      $color={selected ? "blue" : "black"}
+      $bgColorHover={!selected && "blue"}
+      $underline={selected}
     >
       {children}
     </LinkStyled>
@@ -51,7 +42,7 @@ const Menu = () => {
   const theme = useTheme();
   return (
     <Box>
-      <Breadcrumbs color={theme.dark.colors.defaultMain}>
+      <Breadcrumbs color="black">
         <LinkMenu to="/">
           <MdHome />
           Início

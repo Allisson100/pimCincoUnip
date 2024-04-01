@@ -16,7 +16,7 @@ const ButtonCard = ({ children, icon, to }) => {
         flexDirection="column"
         gap="1rem"
         sx={{
-          border: "2px solid white",
+          border: "2px solid black",
           backgroundColor: theme.dark.colors.palette.blue.five,
           transition: "0.2s",
           cursor: "pointer",

@@ -9,7 +9,7 @@ const ShowEquipaments = () => {
     <Box
       display="flex"
       alignItems="center"
-      justifyContent="space-between"
+      justifyContent="center"
       component="section"
       gap="1rem"
       flexWrap="wrap"

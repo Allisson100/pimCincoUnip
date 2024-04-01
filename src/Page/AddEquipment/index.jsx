@@ -9,7 +9,6 @@ import {
   Checkbox,
   Typography,
 } from "@mui/material";
-import Title from "../../components/Title";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import addEquipmentsIcons from "../../assets/addEquipmentsIcons";
 import { useState } from "react";
@@ -100,29 +99,6 @@ const AddEquipment = () => {
               error={Boolean(touched.name && errors.name)}
               label="Nome do Equipamento"
               helperText=""
-              sx={{
-                // Cor da borda
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid white",
-                },
-                // Adicione estilos ao hover
-                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                  {
-                    border: "1px solid rgba(255, 255, 255, 0.5)",
-                  },
-                // Cor do Label
-                "& .MuiFormLabel-root": {
-                  color: "white",
-                },
-                // Quando esta com erro
-                "& .MuiFormLabel-root.Mui-error": {
-                  color: "#d32f2f",
-                },
-                // Oq eu escrevo
-                "& .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root": {
-                  color: "white",
-                },
-              }}
             />
           </Box>
 
@@ -138,29 +114,6 @@ const AddEquipment = () => {
               error={Boolean(touched.category && errors.category)}
               label="Nome da Categoria do Equipamento"
               helperText=""
-              sx={{
-                // Cor da borda
-                "& .MuiOutlinedInput-notchedOutline": {
-                  border: "1px solid white",
-                },
-                // Adicione estilos ao hover
-                "&:hover .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
-                  {
-                    border: "1px solid rgba(255, 255, 255, 0.5)",
-                  },
-                // Cor do Label
-                "& .MuiFormLabel-root": {
-                  color: "white",
-                },
-                // Quando esta com erro
-                "& .MuiFormLabel-root.Mui-error": {
-                  color: "#d32f2f",
-                },
-                // Oq eu escrevo
-                "& .css-md26zr-MuiInputBase-root-MuiOutlinedInput-root": {
-                  color: "white",
-                },
-              }}
             />
           </Box>
 
@@ -187,10 +140,10 @@ const AddEquipment = () => {
                     checked={selectedIcon === icon.id}
                     onChange={() => handleIconSelect(icon.id)}
                     sx={{
-                      color: touched.iconId && errors.iconId ? "red" : "white",
+                      color: touched.iconId && errors.iconId ? "red" : "black",
                     }}
                   />
-                  <icon.icon size={60} color={theme.dark.colors.defaultMain} />
+                  <icon.icon size={60} color="black" />
                 </Grid>
               ))}
             </>

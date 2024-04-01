@@ -3,6 +3,7 @@ import DefaultPage from "./components/DefaultPage";
 import App from "./App";
 import ShowEquipaments from "./Page/ShowEquipaments";
 import AddEquipment from "./Page/AddEquipment";
+import ReserveEquipment from "./Page/ReserveEquipment";
 
 const AppRouter = () => {
   return (
@@ -12,10 +13,7 @@ const AppRouter = () => {
           <Route index element={<App />} />
           <Route path="/showEquipments" element={<ShowEquipaments />} />
           <Route path="/addEquipment" element={<AddEquipment />} />
-          <Route
-            path="/reserveEquipment"
-            element={<div>reserveEquipment</div>}
-          />
+          <Route path="/reserveEquipment" element={<ReserveEquipment />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -14,14 +14,14 @@ const Logo = () => {
         alignItems="center"
         flexDirection="column"
       >
-        <IoSchool size={100} color={theme.dark.colors.defaultMain} />
+        <IoSchool size={100} color="black" />
         <Typography
           component="p"
           textAlign="center"
-          sx={(theme) => ({
-            color: theme.dark.colors.defaultMain,
+          sx={{
+            color: "black",
             fontSize: "2rem",
-          })}
+          }}
         >
           Colégio Vencer Sempre
         </Typography>
