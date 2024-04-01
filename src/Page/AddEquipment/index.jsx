@@ -18,7 +18,6 @@ import { CategoryEquipment } from "../../classes/equipment";
 const AddEquipment = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
-  const equipments = useSelector((state) => state.equipments);
 
   const ValidationSchema = Yup.object().shape({
     name: Yup.string().required("Nome é necessário"),
