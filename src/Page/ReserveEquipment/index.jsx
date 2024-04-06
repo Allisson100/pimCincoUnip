@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Form, FormikProvider, useFormik, Field } from "formik";
 import * as Yup from "yup";
 import {
@@ -9,6 +8,8 @@ import {
   InputLabel,
   TextField,
   Button,
+  Typography,
+  Modal,
 } from "@mui/material";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -17,7 +18,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { LuBookPlus } from "react-icons/lu";
 import dayjs from "dayjs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { ReservationManager } from "../../classes/reserve";
+import { FaCalendarCheck } from "react-icons/fa";
+import { IoCloseCircle } from "react-icons/io5";
+import { useState } from "react";
 
 function Label({ message, changeColor = false }) {
   const content = (
@@ -36,11 +41,17 @@ function Label({ message, changeColor = false }) {
 }
 
 const ReserveEquipment = () => {
+  const [opnModal, setOpenModal] = useState(false);
+
+  const handleOpen = () => setOpenModal(true);
+  const handleClose = () => setOpenModal(false);
+
+  const dispatch = useDispatch();
   const equipments = useSelector((state) => state.equipments);
 
   const ValidationSchema = Yup.object().shape({
     name: Yup.string().required("Nome é necessário"),
-    equipment: Yup.string().required("Equipamento é necessário"),
+    equipmentId: Yup.string().required("Equipamento é necessário"),
     date: Yup.string().required("Data é necessária"),
     timeStart: Yup.string().required("Hora de início é necessário"),
     timeEnd: Yup.string().required("Hora final é necessário"),
@@ -49,20 +60,32 @@ const ReserveEquipment = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      equipment: "",
+      equipmentId: "",
       date: "",
       timeStart: "",
       timeEnd: "",
     },
     validationSchema: ValidationSchema,
     onSubmit: (values, { resetForm }) => {
-      console.log("values", values);
+      const { name, equipmentId, date, timeStart, timeEnd } = values;
+
+      const createReserve = new ReservationManager(
+        name,
+        equipmentId,
+        date,
+        timeStart,
+        timeEnd
+      );
+      createReserve.reserveEquipment(dispatch);
 
       resetForm();
     },
   });
 
   const { values, errors, touched, getFieldProps, setFieldValue } = formik;
+  const allReserveExist = equipments.some(
+    (equipment) => equipment.reserve.length > 0
+  );
 
   return (
     <FormikProvider value={formik}>
@@ -77,7 +100,7 @@ const ReserveEquipment = () => {
         <Box
           sx={{
             width: "45%",
-            height: "90vh",
+            minHeight: "100vh",
             border: "3px solid black",
             borderRadius: "1rem",
             padding: "1rem",
@@ -92,7 +115,7 @@ const ReserveEquipment = () => {
               marginBottom: "1rem",
               color:
                 Boolean(touched.name && errors.name) ||
-                Boolean(touched.equipment && errors.equipment) ||
+                Boolean(touched.equipmentId && errors.equipmentId) ||
                 Boolean(touched.date && errors.date) ||
                 Boolean(touched.timeStart && errors.timeStart) ||
                 Boolean(touched.timeEnd && errors.timeEnd)
@@ -125,7 +148,7 @@ const ReserveEquipment = () => {
           >
             <InputLabel
               id="demo-simple-select-label"
-              error={Boolean(touched.equipment && errors.equipment)}
+              error={Boolean(touched.equipmentId && errors.equipmentId)}
             >
               Equipamentos
             </InputLabel>
@@ -133,15 +156,15 @@ const ReserveEquipment = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Equipamentos"
-              value={values.equipment}
-              {...getFieldProps("equipment")}
+              value={values.equipmentId}
+              {...getFieldProps("equipmentId")}
               onChange={(event) => {
-                setFieldValue("equipment", event.target.value);
+                setFieldValue("equipmentId", event.target.value);
               }}
-              error={Boolean(touched.equipment && errors.equipment)}
+              error={Boolean(touched.equipmentId && errors.equipmentId)}
             >
               {equipments?.map((equipment) => (
-                <MenuItem key={equipment.id} value={equipment.name}>
+                <MenuItem key={equipment.id} value={equipment.id}>
                   {equipment.name}
                 </MenuItem>
               ))}
@@ -254,14 +277,133 @@ const ReserveEquipment = () => {
         <Box
           sx={{
             width: "45%",
-            height: "90vh",
+            height: "100vh",
             border: "3px solid black",
             borderRadius: "1rem",
             padding: "1rem",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            flexDirection: "column",
+            gap: "1rem",
           }}
         >
           <h3>Reservados</h3>
+          <Box
+            sx={{
+              width: "100%",
+              overflowY: "auto",
+              display: "flex",
+              flexDirection: "column",
+              gap: "2rem",
+            }}
+          >
+            {equipments?.map((equipment) => {
+              const reserveExist = equipment.reserve.length > 0;
+
+              return (
+                reserveExist && (
+                  <Box key={equipment.id}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                        gap: "1rem",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <Box>{<equipment.icon size={40} />}</Box>
+                      <Typography sx={{ fontWeight: "bold" }}>
+                        {equipment.name}
+                      </Typography>
+                    </Box>
+                    <Box>
+                      {equipment?.reserve?.map((item) => (
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "flex-start",
+                            alignItems: "center",
+                            gap: "0.5rem",
+                            flexWrap: "wrap",
+                            padding: "0.5rem",
+                          }}
+                        >
+                          <FaCalendarCheck
+                            size={15}
+                            style={{
+                              marginLeft: "1rem",
+                            }}
+                          />
+                          <Box sx={{ fontSize: "0.9rem" }}>
+                            {`${item.name} - ${item.date.replace(/-/g, "/")}: ${
+                              item.timeStart
+                            } às ${item.timeEnd}`}
+                          </Box>
+                          <IoCloseCircle
+                            size={15}
+                            color="red"
+                            cursor="pointer"
+                            onClick={handleOpen}
+                          />
+                        </Box>
+                      ))}
+                    </Box>
+                  </Box>
+                )
+              );
+            })}
+          </Box>
+          {!allReserveExist && (
+            <Typography>Nenhum equipamento reservado</Typography>
+          )}
         </Box>
+
+        <Modal
+          open={opnModal}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "50%",
+              bgcolor: "background.paper",
+              border: "2px solid #000",
+              boxShadow: 24,
+              p: 4,
+              borderRadius: "1rem",
+            }}
+          >
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              textAlign="center"
+            >
+              Digite a senha para remover o agendamento
+            </Typography>
+            {/* Criar o ID para cada objeto para saber qual agendademento excluir */}
+            {/* Fazer um esquema na seção de Adicionar equipamento apra removê-los tbm */}
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Erro se senha estiver incorreta
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              Input para digitar senha
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              botão confirmar
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              botão voltar
+            </Typography>
+          </Box>
+        </Modal>
       </Form>
     </FormikProvider>
   );

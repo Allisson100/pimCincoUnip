@@ -68,9 +68,21 @@ const equipmentsSlice = createSlice({
     addEquipment: (state, { payload }) => {
       state.push(payload);
     },
+    reserveEquipment: (state, { payload }) => {
+      const { equipmentId } = payload;
+      const equipmentIndex = state.findIndex(
+        (equipment) => equipment.id === equipmentId
+      );
+
+      if (equipmentIndex !== -1) {
+        state[equipmentIndex].reserve.push(payload);
+      }
+
+      return state;
+    },
   },
 });
 
 export default equipmentsSlice.reducer;
 
-export const { addEquipment } = equipmentsSlice.actions;
+export const { addEquipment, reserveEquipment } = equipmentsSlice.actions;
