@@ -1,7 +1,9 @@
-import { reserveEquipment } from "../store/reducers/equipments";
+import { reserveEquipment, removeReserve } from "../store/reducers/equipments";
+import { v4 as uuidv4 } from "uuid";
 
 class ReservationManager {
   constructor(name, equipmentId, date, timeStart, timeEnd) {
+    this.id = uuidv4();
     this.name = name;
     this.equipmentId = equipmentId;
     this.date = date;
@@ -10,9 +12,14 @@ class ReservationManager {
   }
 
   reserveEquipment(dispatch) {
-    const { name, equipmentId, date, timeStart, timeEnd } = this;
-    const newReserve = { name, equipmentId, date, timeStart, timeEnd };
+    const { id, name, equipmentId, date, timeStart, timeEnd } = this;
+    const newReserve = { id, name, equipmentId, date, timeStart, timeEnd };
     dispatch(reserveEquipment(newReserve));
+  }
+
+  removeReserve(equipmentId, reserveId, dispatch) {
+    const itemToRemove = { equipmentId, reserveId };
+    dispatch(removeReserve(itemToRemove));
   }
 }
 

@@ -9,7 +9,6 @@ import {
   TextField,
   Button,
   Typography,
-  Modal,
 } from "@mui/material";
 import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -23,6 +22,7 @@ import { ReservationManager } from "../../classes/reserve";
 import { FaCalendarCheck } from "react-icons/fa";
 import { IoCloseCircle } from "react-icons/io5";
 import { useState } from "react";
+import ModalApp from "../../components/Modal";
 
 function Label({ message, changeColor = false }) {
   const content = (
@@ -41,13 +41,22 @@ function Label({ message, changeColor = false }) {
 }
 
 const ReserveEquipment = () => {
-  const [opnModal, setOpenModal] = useState(false);
-
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
-
   const dispatch = useDispatch();
   const equipments = useSelector((state) => state.equipments);
+  const [itemToRemoveReserve, setItemToRemoveReserve] = useState({});
+  const [opnModal, setOpenModal] = useState(false);
+
+  const handleOpen = (item) => {
+    setItemToRemoveReserve(item);
+    setOpenModal(true);
+  };
+  const handleClose = () => setOpenModal(false);
+
+  const handleRemoveReserve = async () => {
+    const removeReserve = new ReservationManager();
+    const { equipmentId, reserveId } = itemToRemoveReserve;
+    removeReserve.removeReserve(equipmentId, reserveId, dispatch);
+  };
 
   const ValidationSchema = Yup.object().shape({
     name: Yup.string().required("Nome é necessário"),
@@ -55,6 +64,11 @@ const ReserveEquipment = () => {
     date: Yup.string().required("Data é necessária"),
     timeStart: Yup.string().required("Hora de início é necessário"),
     timeEnd: Yup.string().required("Hora final é necessário"),
+    ...(opnModal && {
+      password: Yup.string().test("password", "Senha incorreta", (value) =>
+        value === "12345" ? true : false
+      ),
+    }),
   });
 
   const formik = useFormik({
@@ -64,6 +78,7 @@ const ReserveEquipment = () => {
       date: "",
       timeStart: "",
       timeEnd: "",
+      password: "",
     },
     validationSchema: ValidationSchema,
     onSubmit: (values, { resetForm }) => {
@@ -321,6 +336,7 @@ const ReserveEquipment = () => {
                     <Box>
                       {equipment?.reserve?.map((item) => (
                         <Box
+                          key={item.id}
                           sx={{
                             display: "flex",
                             justifyContent: "flex-start",
@@ -345,7 +361,12 @@ const ReserveEquipment = () => {
                             size={15}
                             color="red"
                             cursor="pointer"
-                            onClick={handleOpen}
+                            onClick={() =>
+                              handleOpen({
+                                equipmentId: equipment.id,
+                                reserveId: item.id,
+                              })
+                            }
                           />
                         </Box>
                       ))}
@@ -360,50 +381,11 @@ const ReserveEquipment = () => {
           )}
         </Box>
 
-        <Modal
-          open={opnModal}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "50%",
-              bgcolor: "background.paper",
-              border: "2px solid #000",
-              boxShadow: 24,
-              p: 4,
-              borderRadius: "1rem",
-            }}
-          >
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              textAlign="center"
-            >
-              Digite a senha para remover o agendamento
-            </Typography>
-            {/* Criar o ID para cada objeto para saber qual agendademento excluir */}
-            {/* Fazer um esquema na seção de Adicionar equipamento apra removê-los tbm */}
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Erro se senha estiver incorreta
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              Input para digitar senha
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              botão confirmar
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              botão voltar
-            </Typography>
-          </Box>
-        </Modal>
+        <ModalApp
+          openModal={opnModal}
+          handleClose={handleClose}
+          handleRemoveReserve={handleRemoveReserve}
+        />
       </Form>
     </FormikProvider>
   );

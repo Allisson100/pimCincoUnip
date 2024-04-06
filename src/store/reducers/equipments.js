@@ -80,9 +80,26 @@ const equipmentsSlice = createSlice({
 
       return state;
     },
+
+    removeReserve: (state, { payload }) => {
+      const { equipmentId, reserveId } = payload;
+
+      const findEquipmentIndex = state.findIndex(
+        (equipment) => equipment.id === equipmentId
+      );
+
+      if (findEquipmentIndex !== -1) {
+        state[findEquipmentIndex].reserve = state[
+          findEquipmentIndex
+        ].reserve.filter((eachReserve) => eachReserve.id !== reserveId);
+      }
+
+      return state;
+    },
   },
 });
 
 export default equipmentsSlice.reducer;
 
-export const { addEquipment, reserveEquipment } = equipmentsSlice.actions;
+export const { addEquipment, reserveEquipment, removeReserve } =
+  equipmentsSlice.actions;
