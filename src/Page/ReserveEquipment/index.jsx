@@ -94,7 +94,7 @@ const ReserveEquipment = () => {
         resetForm();
       } else {
         alert(
-          `Já existe uma reserva nessa data e horário que você digitou, porfavor verifique a tabela de agendamento ao lado para saber quais dias e horários esse equipmaento está disponível`
+          `Já existe uma reserva nessa data e horário que você digitou, por favor verifique a tabela de agendamento ao lado para saber quais dias e horários esse equipmaento está disponível`
         );
       }
     },
