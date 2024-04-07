@@ -64,11 +64,6 @@ const ReserveEquipment = () => {
     date: Yup.string().required("Data é necessária"),
     timeStart: Yup.string().required("Hora de início é necessário"),
     timeEnd: Yup.string().required("Hora final é necessário"),
-    ...(opnModal && {
-      password: Yup.string().test("password", "Senha incorreta", (value) =>
-        value === "12345" ? true : false
-      ),
-    }),
   });
 
   const formik = useFormik({
@@ -78,7 +73,6 @@ const ReserveEquipment = () => {
       date: "",
       timeStart: "",
       timeEnd: "",
-      password: "",
     },
     validationSchema: ValidationSchema,
     onSubmit: (values, { resetForm }) => {
@@ -137,14 +131,6 @@ const ReserveEquipment = () => {
           <h3
             style={{
               marginBottom: "1rem",
-              color:
-                Boolean(touched.name && errors.name) ||
-                Boolean(touched.equipmentId && errors.equipmentId) ||
-                Boolean(touched.date && errors.date) ||
-                Boolean(touched.timeStart && errors.timeStart) ||
-                Boolean(touched.timeEnd && errors.timeEnd)
-                  ? "red"
-                  : "none",
             }}
           >
             Preencha todos os campos
