@@ -91,9 +91,18 @@ const ReserveEquipment = () => {
         timeStart,
         timeEnd
       );
-      createReserve.reserveEquipment(dispatch);
 
-      resetForm();
+      const verify = createReserve.verifyReserve(equipments);
+
+      if (verify) {
+        createReserve.reserveEquipment(dispatch);
+
+        resetForm();
+      } else {
+        alert(
+          `Já existe uma reserva nessa data e horário que você digitou, porfavor verifique a tabela de agendamento ao lado para saber quais dias e horários esse equipmaento está disponível`
+        );
+      }
     },
   });
 
