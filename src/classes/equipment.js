@@ -10,7 +10,7 @@ class Equipment {
   }
 
   showDetails() {
-    alert(`Equipment Name: ${this.name}, Id: ${this.id}`);
+    alert(`Id: ${this.id}\nEquipamento: ${this.name}`);
   }
 }
 
@@ -24,6 +24,12 @@ class CategoryEquipment extends Equipment {
     const { id, name, icon, category, reserve } = this;
     const newEquipment = { id, name, icon, category, reserve };
     dispatch(addEquipment(newEquipment));
+  }
+
+  showDetails() {
+    alert(
+      `Id: ${this.id}\nEquipamento: ${this.name}\nCategoria: ${this.category}`
+    );
   }
 }
 
